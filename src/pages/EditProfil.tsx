@@ -18,7 +18,7 @@ const EditProfilePage = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:8000/api/user", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "X-API-KEY": "iuy7tk8o6hjg5dews",
@@ -53,7 +53,7 @@ const EditProfilePage = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      await axios.put("http://localhost:8000/api/user", form, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/user`, form, {
         headers: {
           Authorization: `Bearer ${token}`,
           "X-API-KEY": "iuy7tk8o6hjg5dews",

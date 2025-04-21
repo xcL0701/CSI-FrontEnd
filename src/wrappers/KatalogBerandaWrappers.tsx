@@ -9,7 +9,7 @@ export default function CatalogCategory() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/machine", {
+      .get(`${import.meta.env.VITE_API_URL}/api/machine`, {
         headers: {
           "X-API-KEY": "iuy7tk8o6hjg5dews",
         },

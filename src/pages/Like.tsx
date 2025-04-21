@@ -21,7 +21,7 @@ const UserLikedProductsPage = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const resUser = await axios.get("http://localhost:8000/api/user", {
+        const resUser = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "X-API-KEY": "iuy7tk8o6hjg5dews",
@@ -32,7 +32,7 @@ const UserLikedProductsPage = () => {
         setUser(resUser.data.data || resUser.data);
 
         const resLikes = await axios.get(
-          "http://localhost:8000/api/products-like",
+          `${import.meta.env.VITE_API_URL}/api/products-like`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

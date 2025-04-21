@@ -33,14 +33,14 @@ const OrderDetailPage = () => {
         const token = localStorage.getItem("token");
 
         const [orderRes, userRes] = await Promise.all([
-          axios.get(`http://localhost:8000/api/orders/${id}`, {
+          axios.get(`${import.meta.env.VITE_API_URL}/api/orders/${id}`, {
             headers: {
               Authorization: `Bearer ${token}`,
               "X-API-KEY": "iuy7tk8o6hjg5dews",
               Accept: "application/json",
             },
           }),
-          axios.get("http://localhost:8000/api/user", {
+          axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
             headers: {
               Authorization: `Bearer ${token}`,
               "X-API-KEY": "iuy7tk8o6hjg5dews",

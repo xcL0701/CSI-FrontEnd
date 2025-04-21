@@ -28,7 +28,7 @@ export default function Register() {
     }
 
     try {
-      await axios.post("http://localhost:8000/api/register", form, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/register`, form, {
         headers: {
           "X-API-KEY": "iuy7tk8o6hjg5dews",
         },

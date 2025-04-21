@@ -16,7 +16,7 @@ const PurchaseHistoryPage = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const resUser = await axios.get("http://localhost:8000/api/user", {
+        const resUser = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "X-API-KEY": "iuy7tk8o6hjg5dews",
@@ -26,7 +26,7 @@ const PurchaseHistoryPage = () => {
 
         setUser(resUser.data.data || resUser.data);
 
-        const resOrders = await axios.get("http://localhost:8000/api/orders", {
+        const resOrders = await axios.get(`${import.meta.env.VITE_API_URL}/api/orders`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "X-API-KEY": "iuy7tk8o6hjg5dews",

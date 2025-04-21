@@ -18,7 +18,7 @@ export default function ProductDetail() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/products", {
+      .get(`${import.meta.env.VITE_API_URL}/api/products`, {
         headers: {
           "X-API-KEY": "iuy7tk8o6hjg5dews",
         },

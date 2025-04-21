@@ -54,7 +54,7 @@ export default function KatalogProduk() {
   useEffect(() => {
     fetchCartItems();
     axios
-      .get(`${import.meta.env.VITE_API_URL}/products`, {
+      .get(`${import.meta.env.VITE_API_URL}/api/products`, {
         headers: {
           "X-API-KEY": import.meta.env.VITE_API_KEY,
         },
