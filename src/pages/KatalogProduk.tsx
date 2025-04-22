@@ -35,7 +35,7 @@ export default function KatalogProduk() {
     if (!token) return;
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/cart`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/cart`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "X-Api-Key": import.meta.env.VITE_API_KEY,

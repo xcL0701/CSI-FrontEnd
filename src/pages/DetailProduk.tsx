@@ -38,7 +38,7 @@ export default function ProductDetail() {
 
       if (token) {
         try {
-          const res = await fetch(`${import.meta.env.VITE_API_URL}/user`, {
+          const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user`, {
             headers: {
               Authorization: `Bearer ${token}`,
               "X-Api-Key": import.meta.env.VITE_API_KEY,

@@ -27,7 +27,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     if (!token) return;
 
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/cart`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/cart`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "X-Api-Key": import.meta.env.VITE_API_KEY,
@@ -58,7 +58,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
     try {
       await axios.put(
-        `${import.meta.env.VITE_API_URL}/cart/update-item/${cartId}`,
+        `${import.meta.env.VITE_API_URL}/api/cart/update-item/${cartId}`,
         { quantity },
         {
           headers: {
@@ -79,7 +79,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
     try {
       await axios.delete(
-        `${import.meta.env.VITE_API_URL}/cart/remove-item/${cartId}`,
+        `${import.meta.env.VITE_API_URL}/api/cart/remove-item/${cartId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

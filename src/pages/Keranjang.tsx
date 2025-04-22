@@ -17,7 +17,7 @@ export default function Keranjang() {
 
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/cart/shipping`,
+          `${import.meta.env.VITE_API_URL}/api/cart/shipping`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ export default function Keranjang() {
 
     try {
       await axios.post(
-        `${import.meta.env.VITE_API_URL}/cart/shipping`,
+        `${import.meta.env.VITE_API_URL}/api/cart/shipping`,
         { shipping_method: method },
         {
           headers: {

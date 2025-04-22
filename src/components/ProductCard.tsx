@@ -25,7 +25,7 @@ export default function ProductCard({
         const token = localStorage.getItem("token");
 
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/products/${product.id}`,
+          `${import.meta.env.VITE_API_URL}/api/products/${product.id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -41,7 +41,7 @@ export default function ProductCard({
         setLikesCount(data.likes?.length || 0);
 
         if (token) {
-          const userRes = await fetch(`${import.meta.env.VITE_API_URL}/user`, {
+          const userRes = await fetch(`${import.meta.env.VITE_API_URL}/api/user`, {
             headers: {
               Authorization: `Bearer ${token}`,
               "X-Api-Key": import.meta.env.VITE_API_KEY,
@@ -71,7 +71,7 @@ export default function ProductCard({
     }
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/products-like`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products-like`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -97,7 +97,7 @@ export default function ProductCard({
     }
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/cart/add`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/cart/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
