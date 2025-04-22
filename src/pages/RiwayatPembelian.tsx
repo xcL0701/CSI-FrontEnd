@@ -9,7 +9,7 @@ const PurchaseHistoryPage = () => {
   const [user, setUser] = useState<any>(null);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
-  const { id } = useParams();
+  useParams();
 
   useEffect(() => {
     const fetchData = async () => {

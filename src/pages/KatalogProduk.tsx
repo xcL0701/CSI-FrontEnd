@@ -15,7 +15,7 @@ export default function KatalogProduk() {
   const [itemsPerPage, setItemsPerPage] = useState(20);
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
-  const [cartItems, setCartItems] = useState([]);
+  const [, setCartItems] = useState([]);
 
   const machineTypes = [
     { name: "Semua", slug: "semua" },

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import ProductCard from "../components/ProductCard";
