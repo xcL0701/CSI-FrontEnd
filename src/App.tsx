@@ -36,7 +36,7 @@ function App() {
         }
       />
       <Route
-        path="/katalog"
+        path="/produk"
         element={
           <Layout>
             <KatalogProduk />
@@ -94,7 +94,7 @@ function App() {
         }
       />
       <Route
-        path="profil/riwayat-pembelian"
+        path="/profil/riwayat-pembelian"
         element={
           <Layout>
             <PurchaseHistory />
@@ -102,7 +102,7 @@ function App() {
         }
       />
       <Route 
-        path="profil/riwayat-pembelian/:id"
+        path="/profil/riwayat-pembelian/:id"
         element={
           <Layout>
             <OrderDetailPage/>

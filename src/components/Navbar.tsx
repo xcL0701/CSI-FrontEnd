@@ -27,7 +27,7 @@ export default function Navbar() {
             <a href="/">Beranda</a>
           </li>
           <li>
-            <a href="/katalog">Produk</a>
+            <a href="/produk">Produk</a>
           </li>
           <li>
             <a href="/tentang">Tentang</a>

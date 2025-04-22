@@ -29,7 +29,7 @@ export default function CatalogCategory() {
           Kategori Mesin
         </h2>
         <a
-          href="/katalog"
+          href="/produk"
           className="rounded-full py-3 px-5 bg-white font-bold shadow border"
         >
           Lihat Semua
