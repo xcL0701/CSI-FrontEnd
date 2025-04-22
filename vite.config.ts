@@ -7,8 +7,8 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      "/api": "http://localhost:8000",
-      "/storage": "http://localhost:8000",
+      "/api": "https://projectbe-khqp4.kinsta.app",
+      "/storage": "https://projectbe-khqp4.kinsta.app",
     },
   },
 });
