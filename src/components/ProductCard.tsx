@@ -41,13 +41,16 @@ export default function ProductCard({
         setLikesCount(data.likes?.length || 0);
 
         if (token) {
-          const userRes = await fetch(`${import.meta.env.VITE_API_URL}/api/user`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "X-Api-Key": import.meta.env.VITE_API_KEY,
-              "Content-Type": "application/json",
-            },
-          });
+          const userRes = await fetch(
+            `${import.meta.env.VITE_API_URL}/api/user`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "X-Api-Key": import.meta.env.VITE_API_KEY,
+                "Content-Type": "application/json",
+              },
+            }
+          );
 
           const user = await userRes.json();
           const userLiked = data.likes?.some(
@@ -71,15 +74,18 @@ export default function ProductCard({
     }
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products-like`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          "X-Api-Key": import.meta.env.VITE_API_KEY,
-        },
-        body: JSON.stringify({ product_id: product.id }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/products-like`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            "X-Api-Key": import.meta.env.VITE_API_KEY,
+          },
+          body: JSON.stringify({ product_id: product.id }),
+        }
+      );
 
       const data = await res.json();
       setLiked(data.liked);
@@ -97,18 +103,21 @@ export default function ProductCard({
     }
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/cart/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Api-Key": import.meta.env.VITE_API_KEY,
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          product_id: product.id,
-          quantity: 1,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/cart/add`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Api-Key": import.meta.env.VITE_API_KEY,
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            product_id: product.id,
+            quantity: 1,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Gagal menambahkan ke keranjang");
@@ -134,7 +143,7 @@ export default function ProductCard({
         } flex items-center justify-center`}
       >
         <img
-          src={`/storage/${thumbnail}`}
+          src={`${import.meta.env.VITE_API_URL}/storage/${thumbnail}`}
           alt={product.name}
           className="w-full h-full object-contain"
         />
