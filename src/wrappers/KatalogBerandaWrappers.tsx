@@ -51,7 +51,7 @@ export default function CatalogCategory() {
             >
               <CardMesin
                 title={mesin.name}
-                image={`/storage/${mesin.photo}`}
+                image={`${import.meta.env.VITE_API_URL}/storage/${mesin.photo}`}
                 slug={mesin.slug}
               />
             </SwiperSlide>
