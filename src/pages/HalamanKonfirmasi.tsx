@@ -37,7 +37,7 @@ export default function PaymentConfirmationPage() {
     formData.append("proof", proof);
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/payments`, formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/payments`, formData, {
         headers: {
           Authorization: `Bearer ${authToken}`,
           "X-API-KEY": apiKey,
@@ -60,7 +60,7 @@ export default function PaymentConfirmationPage() {
     }
 
     axios
-      .get(`${import.meta.env.VITE_API_URL}/payment/confirmation/${token}`, {
+      .get(`${import.meta.env.VITE_API_URL}/api/payment/confirmation/${token}`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
           "X-API-KEY": apiKey,
@@ -135,7 +135,7 @@ export default function PaymentConfirmationPage() {
                 <img
                   src={
                     item.product?.thumbnail
-                      ? `${import.meta.env.VITE_API_URL}/storage/${item.product.thumbnail}`
+                      ? `${import.meta.env.VITE_API_URL}/api/storage/${item.product.thumbnail}`
                       : "/placeholder.png"
                   }
                   className="w-24 h-24 object-cover rounded"

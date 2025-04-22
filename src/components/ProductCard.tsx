@@ -143,7 +143,7 @@ export default function ProductCard({
         } flex items-center justify-center`}
       >
         <img
-          src={`${import.meta.env.VITE_API_URL}/storage/${thumbnail}`}
+          src={`${import.meta.env.VITE_API_URL}/api/storage/${thumbnail}`}
           alt={product.name}
           className="w-full h-full object-contain"
         />

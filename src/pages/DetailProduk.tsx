@@ -115,7 +115,7 @@ export default function ProductDetail() {
     }
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/products-like`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products-like`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -20,7 +20,7 @@ const ModalDetailPembayaran: React.FC<Props> = ({ open, onClose, orderId }) => {
     let isMounted = true;
 
     axios
-      .get(`${import.meta.env.VITE_API_URL}/orders/${orderId}/payments`, {
+      .get(`${import.meta.env.VITE_API_URL}/api/orders/${orderId}/payments`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
           "X-API-KEY": apiKey,
