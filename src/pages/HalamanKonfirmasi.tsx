@@ -135,7 +135,7 @@ export default function PaymentConfirmationPage() {
                 <img
                   src={
                     item.product?.thumbnail
-                      ? `${import.meta.env.VITE_API_URL}/api/storage/${item.product.thumbnail}`
+                      ? `${import.meta.env.VITE_API_URL}/storage/${item.product.thumbnail}`
                       : "/placeholder.png"
                   }
                   className="w-24 h-24 object-cover rounded"
