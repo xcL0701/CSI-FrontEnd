@@ -97,7 +97,7 @@ const ModalDetailPembayaran: React.FC<Props> = ({ open, onClose, orderId }) => {
             {payments.length > 0 ? (
               payments.map((payment) => {
                 const statusInfo = statusLabel(payment.status);
-                const imageUrl = `${import.meta.env.VITE_API_URL}/${
+                const imageUrl = `${import.meta.env.VITE_API_URL}/storage/${
                   payment.proof
                 }`;
                 return (
