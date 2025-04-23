@@ -657,7 +657,9 @@ video {
 .mb-5 {
   margin-bottom: 1.25rem;
 }
-
+.max-h-\[300px\] {
+  max-height: 300px;
+}
 .mb-\[100px\] {
   margin-bottom: 100px;
 }
