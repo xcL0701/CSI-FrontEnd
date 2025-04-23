@@ -7,7 +7,7 @@ export default function CardMesin({ title, image, slug }: any) {
         <img
           src={image}
           alt={title}
-          className="w-full h-[180px] object-cover"
+          className="w-full  max-h-[300px] object-cover"
         />
         <div className="p-4 font-semibold text-lg">{title}</div>
       </div>

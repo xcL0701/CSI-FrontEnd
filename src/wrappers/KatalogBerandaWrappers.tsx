@@ -47,7 +47,7 @@ export default function CatalogCategory() {
           {machines.map((mesin) => (
             <SwiperSlide
               key={mesin.id}
-              className="!w-[300px] max-h-[300px] first-of-type:pl-[calc((100%-1130px-60px)/2)] last-of-type:pr-[calc((100%-1130px-60px)/2)]"
+              className="!w-[300px] first-of-type:pl-[calc((100%-1130px-60px)/2)] last-of-type:pr-[calc((100%-1130px-60px)/2)]"
             >
               <CardMesin
                 title={mesin.name}
