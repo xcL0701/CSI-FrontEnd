@@ -27,6 +27,8 @@ export default function ProductDetail() {
         const found = res.data.find((p: Product) => p.slug === slug);
         console.log(`${import.meta.env.VITE_API_URL}/api/products`);
         console.log("API response:", res.data);
+        console.log("RESPONSE RAW", res);
+        console.log("RESPONSE TEXT", res.request?.responseText);
         setProduct(found);
       });
   }, [slug]);
