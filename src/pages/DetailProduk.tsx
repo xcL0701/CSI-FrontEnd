@@ -76,7 +76,7 @@ export default function ProductDetail() {
 
     if (model3D && model3D.trim() !== "") {
       const viewer = document.createElement("model-viewer");
-      viewer.setAttribute("src", `${import.meta.env.VITE_API_URL}/storage/models/${model3D}`);
+      viewer.setAttribute("src", `${import.meta.env.VITE_API_URL}/storage/${model3D}`);
       viewer.setAttribute("alt", product.name);
       viewer.setAttribute("auto-rotate", "");
       viewer.setAttribute("camera-controls", "");
