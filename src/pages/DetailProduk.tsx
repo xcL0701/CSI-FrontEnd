@@ -25,6 +25,8 @@ export default function ProductDetail() {
       })
       .then((res) => {
         const found = res.data.find((p: Product) => p.slug === slug);
+        console.log(`${import.meta.env.VITE_API_URL}/api/products`);
+        console.log("API response:", res.data);
         setProduct(found);
       });
   }, [slug]);
@@ -115,15 +117,18 @@ export default function ProductDetail() {
     }
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products-like`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          "X-Api-Key": import.meta.env.VITE_API_KEY,
-        },
-        body: JSON.stringify({ product_id: product?.id }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/products-like`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            "X-Api-Key": import.meta.env.VITE_API_KEY,
+          },
+          body: JSON.stringify({ product_id: product?.id }),
+        }
+      );
 
       const data = await res.json();
       setLiked(data.liked);
