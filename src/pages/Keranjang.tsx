@@ -5,9 +5,9 @@ import { Helmet } from "react-helmet";
 
 export default function Keranjang() {
   const { cart, updateQuantity, removeFromCart } = useCart();
-  const [shippingMethod, setShippingMethod] = useState<"pickup" | "delivery">(
-    "pickup"
-  );
+  const [shippingMethod, setShippingMethod] = useState<
+    "" | "pickup" | "delivery"
+  >("");
 
   // Ambil shipping method dari backend saat komponen mount
   useEffect(() => {
@@ -216,6 +216,9 @@ export default function Keranjang() {
                   }}
                   className="w-full border rounded px-3 py-2"
                 >
+                  <option value="" disabled>
+                    Pilih Metode Pengiriman
+                  </option>
                   <option value="pickup">Ambil di Tempat</option>
                   <option value="delivery">Diantar</option>
                 </select>
