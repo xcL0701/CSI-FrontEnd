@@ -66,6 +66,7 @@ export default function Keranjang() {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     const username = user.name || "Nama tidak diketahui";
     const email = user.email || "Email tidak diketahui";
+    const alamat = user.address || "Alamat tidak diketahui";
 
     const metode = shippingMethod === "pickup" ? "Ambil di Tempat" : "Diantar";
 
@@ -73,7 +74,7 @@ export default function Keranjang() {
       .map((item) => `- ${item.product?.name || "Produk"} x${item.quantity}`)
       .join("\n");
 
-    const message = `Halo, saya ingin meminta penawaran.\n\nNama: ${username}\nEmail: ${email}\nMetode Pengiriman: ${metode}\n\nBarang:\n${itemList}\n\nAlamat akan saya infokan via chat ini.`;
+    const message = `Halo, saya ingin meminta penawaran.\n\nNama: ${username}\nEmail: ${email}\nMetode Pengiriman: ${metode}\nAlamat: ${alamat}\n\nBarang:\n${itemList}\n\n`;
 
     const encodedMessage = encodeURIComponent(message);
 
@@ -108,7 +109,9 @@ export default function Keranjang() {
                   <img
                     src={
                       item.product?.thumbnail
-                        ? `${import.meta.env.VITE_API_URL}/storage/${item.product.thumbnail}`
+                        ? `${import.meta.env.VITE_API_URL}/storage/${
+                            item.product.thumbnail
+                          }`
                         : "/assets/images/no-image.png"
                     }
                     alt={item.product?.name}
