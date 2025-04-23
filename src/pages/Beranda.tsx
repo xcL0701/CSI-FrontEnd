@@ -36,11 +36,16 @@ export default function Home() {
             id="Hero-Image"
             className="absolute right-0 w-[calc(100%-((100%-1130px)/2)-305px)] h-[720px] rounded-bl-[40px] overflow-hidden hero-img-mobile"
           >
-            <img
-              src="assets/images/backgrounds/banner.jpg"
+            <video
               className="w-full h-full object-cover"
-              alt="hero background"
-            />
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src="/assets/videos/hero-banner.mp4" type="video/mp4" />
+              Browser Anda tidak mendukung video HTML5.
+            </video>
           </div>
         </section>
       </header>
