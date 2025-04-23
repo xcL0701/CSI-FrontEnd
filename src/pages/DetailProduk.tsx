@@ -66,6 +66,11 @@ export default function ProductDetail() {
 
   useEffect(() => {
     if (!product) return;
+    // ... (kode untuk like status)
+  }, [product]);
+
+  useEffect(() => {
+    if (!product) return;
 
     const container = viewerRef.current;
     if (!container) return;
@@ -75,21 +80,35 @@ export default function ProductDetail() {
     const model3D = product.model_3d;
 
     if (model3D && model3D.trim() !== "") {
-      const viewer = document.createElement("model-viewer");
-      viewer.setAttribute("src", `${import.meta.env.VITE_API_URL}/storage/${model3D}`);
-      viewer.setAttribute("alt", product.name);
-      viewer.setAttribute("auto-rotate", "");
-      viewer.setAttribute("camera-controls", "");
-      viewer.setAttribute("shadow-intensity", "0.5");
-      viewer.setAttribute("exposure", "0.8");
-      viewer.setAttribute("environment-image", "neutral");
-      viewer.setAttribute("interaction-prompt", "none");
+      fetch(`${import.meta.env.VITE_API_URL}/storage/${model3D}`, {
+        mode: 'no-cors'
+      })
+      .then(response => response.blob()) // Mencoba mendapatkan blob (mungkin opaque)
+      .then(blob => {
+        const blobUrl = URL.createObjectURL(blob);
+        const viewer = document.createElement("model-viewer");
+        viewer.setAttribute("src", blobUrl);
+        viewer.setAttribute("alt", product.name);
+        viewer.setAttribute("auto-rotate", "");
+        viewer.setAttribute("camera-controls", "");
+        viewer.setAttribute("shadow-intensity", "0.5");
+        viewer.setAttribute("exposure", "0.8");
+        viewer.setAttribute("environment-image", "neutral");
+        viewer.setAttribute("interaction-prompt", "none");
 
-      viewer.style.width = "100%";
-      viewer.style.height = "400px";
-      viewer.style.backgroundColor = isDarkBg ? "#1a1a1a" : "#ffffff";
+        viewer.style.width = "100%";
+        viewer.style.height = "400px";
+        viewer.style.backgroundColor = isDarkBg ? "#1a1a1a" : "#ffffff";
 
-      container.appendChild(viewer);
+        container.appendChild(viewer);
+
+        // Penting untuk membersihkan URL blob setelah tidak digunakan
+        return () => URL.revokeObjectURL(blobUrl);
+      })
+      .catch(error => {
+        console.error("Gagal memuat model dengan no-cors:", error);
+        // Mungkin menampilkan pesan error kepada pengguna
+      });
     }
   }, [product, isDarkBg]);
 
