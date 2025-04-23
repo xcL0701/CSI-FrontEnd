@@ -108,7 +108,7 @@ export default function Keranjang() {
                   <img
                     src={
                       item.product?.thumbnail
-                        ? `/storage/${item.product.thumbnail}`
+                        ? `${import.meta.env.VITE_API_URL}/storage/${item.product.thumbnail}`
                         : "/assets/images/no-image.png"
                     }
                     alt={item.product?.name}

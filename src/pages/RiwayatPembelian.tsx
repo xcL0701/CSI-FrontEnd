@@ -137,7 +137,7 @@ const PurchaseHistoryPage = () => {
                         <div className="w-16 h-16 rounded overflow-hidden flex items-center justify-center">
                           {thumbnail ? (
                             <img
-                              src={`/storage/${thumbnail}`}
+                              src={`${import.meta.env.VITE_API_URL}/storage/${thumbnail}`}
                               alt="Thumbnail"
                               className="object-cover w-full h-full"
                             />
