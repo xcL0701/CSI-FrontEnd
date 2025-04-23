@@ -97,7 +97,9 @@ const ModalDetailPembayaran: React.FC<Props> = ({ open, onClose, orderId }) => {
             {payments.length > 0 ? (
               payments.map((payment) => {
                 const statusInfo = statusLabel(payment.status);
-                const imageUrl = `${import.meta.env.VITE_API_URL}/storage/proofs/${payment.proof}`;
+                const imageUrl = `${import.meta.env.VITE_API_URL}/proofs/${
+                  payment.proof
+                }`;
                 return (
                   <div key={payment.id} className="space-y-2">
                     <div className="flex justify-between items-center">
