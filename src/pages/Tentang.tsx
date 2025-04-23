@@ -9,13 +9,30 @@ export default function Tentang() {
         <title>Tentang - Crusher Spares Indonesia</title>
       </Helmet>
       <div className="w-full min-h-screen py-12 px-4">
-        <div className="max-w-[1130px] mx-auto">
-          {/* Informasi Perusahaan */}
-          <div className="flex flex-col lg:flex-row items-start gap-10 mb-10">
+        <div className="max-w-[1130px] mx-auto flex flex-col gap-10">
+          {/* Judul */}
+          <h2 className="text-3xl font-bold text-center">
+            PT Crusher Spares Indonesia
+          </h2>
+
+          {/* Video */}
+          <div className="w-full aspect-video rounded-xl overflow-hidden shadow-lg">
+              <video
+                className="w-full h-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+              >
+                <source src="/assets/video/Preview.mp4" type="video/mp4" />
+                Browser Anda tidak mendukung video HTML5.
+              </video>
+          </div>
+
+          {/* Tentang Perusahaan */}
+          <div className="flex flex-col lg:flex-row items-start gap-10">
             <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-4">
-                PT Crusher Spares Indonesia
-              </h2>
+              <h3 className="text-xl font-semibold mb-4">Tentang</h3>
               <p className="text-gray-700 text-left">
                 Crusher Spares didirikan pada tahun 1985 oleh Steven Sim dan
                 rekan untuk memberikan jasa di bidang industri tambang dan
@@ -23,7 +40,8 @@ export default function Tentang() {
                 Indonesia sebagai bagian dari ekspansi global perusahaan.
                 Berfokus pada import dari China dengan standar kualitas dan
                 reputasi manufaktur yang tinggi untuk memenuhi kebutuhan suku
-                cadang yang lebih tahan lama. <br />
+                cadang yang lebih tahan lama.
+                <br />
                 <br />
                 Dengan fasilitas warehouse dan kantor pusat yang berlokasi di
                 Wingfield, Adelaide, Australia Selatan untuk mendukung technical
@@ -40,6 +58,7 @@ export default function Tentang() {
             />
           </div>
 
+          {/* Card Info */}
           <div className="flex flex-col lg:flex-row bg-white rounded-xl p-6 gap-8 shadow-md">
             <div className="flex-1">
               <iframe
@@ -54,16 +73,15 @@ export default function Tentang() {
               ></iframe>
             </div>
 
-            {/* Kontak Info */}
             <div className="flex-1 flex flex-col gap-4 text-sm text-gray-800 text-left self-center">
               <div className="flex items-start gap-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  className="size-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
                 >
                   <path
                     strokeLinecap="round"
@@ -82,14 +100,15 @@ export default function Tentang() {
                   Kota Bekasi, Jawa Barat, Indonesia
                 </p>
               </div>
+
               <div className="flex items-start gap-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  className="size-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
                 >
                   <path
                     strokeLinecap="round"
@@ -101,14 +120,15 @@ export default function Tentang() {
                   Hari Kerja <br /> 9.00 AM – 5.00 PM
                 </p>
               </div>
+
               <div className="flex items-center gap-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  className="size-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
                 >
                   <path
                     strokeLinecap="round"
@@ -118,14 +138,15 @@ export default function Tentang() {
                 </svg>
                 <p>+62 21-8499-2330</p>
               </div>
+
               <div className="flex items-center gap-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  className="size-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
                 >
                   <path
                     strokeLinecap="round"
@@ -144,23 +165,23 @@ export default function Tentang() {
                   rel="noopener noreferrer"
                   className="hover:text-blue-600 text-3xl"
                 >
-                  <FaFacebook className="text-4xl" />
+                  <FaFacebook />
                 </a>
                 <a
                   href="https://www.instagram.com/crusherspares_indonesia/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-pink-600"
+                  className="hover:text-pink-600 text-3xl"
                 >
-                  <FaInstagram className="text-4xl" />
+                  <FaInstagram />
                 </a>
                 <a
                   href="https://wa.me/6281947139720"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-green-500"
+                  className="hover:text-green-500 text-3xl"
                 >
-                  <FaWhatsapp className="text-4xl" />
+                  <FaWhatsapp />
                 </a>
               </div>
             </div>
