@@ -224,8 +224,13 @@ export default function Keranjang() {
                 </select>
               </div>
               <button
-                onClick={() => handleWhatsAppRedirect()}
-                className="mt-4 bg-green-600 text-white px-4 py-2 rounded"
+                onClick={handleWhatsAppRedirect}
+                disabled={!shippingMethod}
+                className={`mt-4 px-4 py-2 rounded text-white ${
+                  !shippingMethod
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-green-600"
+                }`}
               >
                 Lanjut Penawaran
               </button>
