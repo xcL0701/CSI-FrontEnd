@@ -178,7 +178,7 @@ export default function ProductDetail() {
               {product.product_photos.length > 0 && (
                 <div className="w-full h-[320px] rounded-xl border overflow-hidden mb-4">
                   <img
-                    src={`${import.meta.env.VITE_API_URL}/storage/storage/${product.product_photos[selectedImageIndex].photo}`}
+                    src={`${import.meta.env.VITE_API_URL}/storage/${product.product_photos[selectedImageIndex].photo}`}
                     alt={`Foto ${selectedImageIndex + 1}`}
                     className="object-contain w-full h-full transition-opacity duration-300"
                   />
