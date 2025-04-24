@@ -15,6 +15,16 @@ export default function ProductDetail() {
   const thumbnailRef = useRef<HTMLDivElement>(null);
   const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     axios
@@ -25,10 +35,6 @@ export default function ProductDetail() {
       })
       .then((res) => {
         const found = res.data.find((p: Product) => p.slug === slug);
-        console.log(`${import.meta.env.VITE_API_URL}/api/products`);
-        console.log("API response:", res.data);
-        console.log("RESPONSE RAW", res);
-        console.log("RESPONSE TEXT", res.request?.responseText);
         setProduct(found);
       });
   }, [slug]);
@@ -90,12 +96,12 @@ export default function ProductDetail() {
       viewer.setAttribute("interaction-prompt", "none");
 
       viewer.style.width = "100%";
-      viewer.style.height = "400px";
+      viewer.style.height = isMobile ? "300px" : "400px";
       viewer.style.backgroundColor = isDarkBg ? "#1a1a1a" : "#ffffff";
 
       container.appendChild(viewer);
     }
-  }, [product, isDarkBg]);
+  }, [product, isDarkBg, isMobile]);
 
   useEffect(() => {
     const container = thumbnailRef.current;
@@ -182,9 +188,8 @@ export default function ProductDetail() {
               {product.product_photos.length > 0 && (
                 <div className="w-full h-[320px] rounded-xl border overflow-hidden mb-4">
                   <img
-                    src={`${import.meta.env.VITE_API_URL}/storage/${
-                      product.product_photos[selectedImageIndex].photo
-                    }`}
+                    src={`${import.meta.env.VITE_API_URL}/storage/${product.product_photos[selectedImageIndex].photo
+                      }`}
                     alt={`Foto ${selectedImageIndex + 1}`}
                     className="object-contain w-full h-full transition-opacity duration-300"
                   />
@@ -213,16 +218,13 @@ export default function ProductDetail() {
                     <button
                       key={i}
                       onClick={() => setSelectedImageIndex(i)}
-                      className={`w-[60px] h-[60px] flex-shrink-0 rounded border-2 ${
-                        i === selectedImageIndex
-                          ? "border-green-500"
-                          : "border-gray-300"
-                      }`}
+                      className={`w-[60px] h-[60px] flex-shrink-0 rounded border-2 ${i === selectedImageIndex
+                        ? "border-green-500"
+                        : "border-gray-300"
+                        }`}
                     >
                       <img
-                        src={`${import.meta.env.VITE_API_URL}/storage/${
-                          photo.photo
-                        }`}
+                        src={`${import.meta.env.VITE_API_URL}/storage/${photo.photo}`}
                         alt={`Thumb ${i + 1}`}
                         className="w-full h-full object-cover rounded"
                       />
@@ -258,7 +260,7 @@ export default function ProductDetail() {
             </div>
 
             {/* Tombol Aksi */}
-            <div className="w-[300px] bg-white p-4 rounded-xl shadow-md space-y-4">
+            <div className="w-full md:w-[300px] bg-white p-4 rounded-xl shadow-md space-y-4">
               <button className="mb-5 bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-4 rounded-full w-full flex items-center justify-center gap-2 text-base">
                 <span className="text-xl">
                   <FiPlus />
@@ -266,15 +268,14 @@ export default function ProductDetail() {
                 Tambah ke Keranjang
               </button>
 
-              <div className="flex gap-3 justify-between">
+              <div className="flex flex-col sm:flex-row gap-3">
                 {/* Like Button */}
                 <button
                   onClick={handleLike}
-                  className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full text-white font-medium flex-1 ${
-                    liked
-                      ? "bg-pink-400 hover:bg-pink-500"
-                      : "bg-pink-300 hover:bg-pink-400"
-                  }`}
+                  className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full text-white font-medium flex-1 ${liked
+                    ? "bg-pink-400 hover:bg-pink-500"
+                    : "bg-pink-300 hover:bg-pink-400"
+                    }`}
                 >
                   <span>{liked ? "❤️" : "🤍"}</span> {likesCount} Suka
                 </button>

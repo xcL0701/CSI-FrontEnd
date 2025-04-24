@@ -2,36 +2,27 @@ import { FaWhatsapp, FaInstagram, FaFacebook } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 text-white py-12">
+    <footer className="bg-gray-800 text-white py-8 md:py-12">
       <div className="w-full max-w-6xl mx-auto px-4">
-        {/* Grid 3 kolom */}
-        <div className="grid grid-cols-3 gap-8 items-start">
+        {/* Grid 3 kolom di desktop, kolom vertikal di mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
           {/* Kolom 1 - Logo & Alamat */}
-          <div className="flex flex-col">
+          <div>
             <img
               src="/assets/images/logos/logont.png"
               alt="Logo"
-              className="w-[80px] mb-4 text-center"
+              className="w-[80px] my-4 justify-self-center"
             />
-            <div className="text-left">
-              <h4 className="text-white font-semibold text-base mb-2">
-                PT Crusher Spares Indonesia
-              </h4>
-              <p className="text-sm text-gray-400 max-w-[250px]">
-                Jl. Mawar Raya No.107,
-                <br />
-                RT.001/RW.007,
-                <br />
-                Jatirahayu, Pondok Melati, Bekasi,
-                <br />
-                17414
-              </p>
-            </div>
+            <h4 className="font-semibold mb-1">PT Crusher Spares Indonesia</h4>
+            <p className="text-gray-400 leading-relaxed">
+              Jl. Mawar Raya No.107, RT.001/RW.007, Jatirahayu, Pondok Melati,
+              Bekasi, 17414
+            </p>
           </div>
 
           {/* Kolom 2 - Navigasi */}
-          <div className="flex justify-center items-start mt-6 self-center">
-            <nav className="flex gap-15 text-sm text-gray-300">
+          <div className="md:flex md:justify-center self-center">
+            <nav className="flex flex-col md:flex-row gap-2 md:gap-6 text-gray-300">
               <a href="/" className="hover:underline">
                 Beranda
               </a>
@@ -45,28 +36,29 @@ export default function Footer() {
           </div>
 
           {/* Kolom 3 - Sosial Media */}
-          <div className="flex flex-col items-end text-right mt-6 self-center">
-            <h4 className="text-white font-semibold text-base mb-2">
-              Ikuti Kami
-            </h4>
-            <div className="flex flex-col gap-2 text-sm text-gray-400">
+          <div className="flex flex-col  mb-4 md:items-end self-center justify-self-center">
+            <h4 className="font-semibold mb-2">Ikuti Kami</h4>
+            <div className="flex gap-4 text-xl text-gray-300">
               <a
                 href="https://wa.me/6281947139720"
-                className="hover:underline flex items-center gap-2"
+                className="hover:text-white"
+                aria-label="WhatsApp"
               >
-                <FaWhatsapp /> WhatsApp
+                <FaWhatsapp />
               </a>
               <a
                 href="https://www.instagram.com/crusherspares_indonesia/"
-                className="hover:underline flex items-center gap-2"
+                className="hover:text-white"
+                aria-label="Instagram"
               >
-                <FaInstagram /> Instagram
+                <FaInstagram />
               </a>
               <a
                 href="https://www.facebook.com/CrusherSparesIndo"
-                className="hover:underline flex items-center gap-2"
+                className="hover:text-white"
+                aria-label="Facebook"
               >
-                <FaFacebook /> Facebook
+                <FaFacebook />
               </a>
             </div>
           </div>

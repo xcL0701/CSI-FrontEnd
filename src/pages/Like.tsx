@@ -11,10 +11,22 @@ const UserLikedProductsPage = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // Sesuaikan breakpoint jika perlu
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,6 +83,13 @@ const UserLikedProductsPage = () => {
   );
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Determine the number of columns for the grid (same logic as KatalogProduk)
+  const gridCols = isMobile ? 2 : 4;
+
   if (loading) return <div className="p-10">Loading...</div>;
   if (!user) return <div className="p-10 text-red-500">Gagal memuat data.</div>;
 
@@ -80,49 +99,101 @@ const UserLikedProductsPage = () => {
         <title>Barang Yang Disukai - Crusher Spares Indonesia</title>
       </Helmet>
       <div className="flex justify-center p-4">
-        <div className="grid grid-cols-[250px_1fr] w-full max-w-[1130px]">
+        <div className="grid grid-cols-1 md:grid-cols-[250px_1fr] w-full max-w-[1130px]">
           {/* Sidebar */}
-          <div className="flex flex-col border-r border-gray-300 text-left">
-            <div className="p-6 border-b border-gray-300 flex flex-col items-center">
-              <img
-                src="/assets/images/photos/photo-1.png"
-                alt="User"
-                className="w-18"
-              />
-              <p className="font-semibold text-center">{user.name}</p>
-              <p className="text-sm text-gray-600 text-center">{user.email}</p>
-            </div>
+          <div className={`border-r border-gray-300 text-left ${isMobile ? 'block' : 'flex flex-col'}`}>
+            {isMobile ? (
+              <>
+                <div className="p-6 border-b border-gray-300 flex items-center justify-between">
+                  <div className="flex items-center">
+                    <img
+                      src="/assets/images/photos/photo-1.png"
+                      alt="User"
+                      className="w-10 h-10 rounded-full object-cover mr-2"
+                    />
+                    <p className="font-semibold text-center">{user.name}</p>
+                  </div>
+                  <button onClick={toggleMenu} className="text-gray-600 focus:outline-none">
+                    {isMenuOpen ? (
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                    ) : (
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+                    )}
+                  </button>
+                </div>
+                {isMenuOpen && (
+                  <nav className="p-6 space-y-4 text-sm">
+                    <a href="/profil" className=" block text-gray-700">
+                      Profil Saya
+                    </a>
+                    <a
+                      href="/profil/favorit"
+                      className="font-semibold block text-gray-800"
+                    >
+                      Barang Yang Disukai
+                    </a>
+                    <a
+                      href="/profil/riwayat-pembelian"
+                      className="block text-gray-700"
+                    >
+                      Riwayat Pembelian Saya
+                    </a>
+                    <button
+                      onClick={() => {
+                        localStorage.removeItem("token");
+                        window.location.href = "/login";
+                      }}
+                      className="block text-red-600"
+                    >
+                      Keluar
+                    </button>
+                  </nav>
+                )}
+              </>
+            ) : (
+              <>
+                <div className="p-6 border-b border-gray-300 flex flex-col items-center">
+                  <img
+                    src="/assets/images/photos/photo-1.png"
+                    alt="User"
+                    className="w-18"
+                  />
+                  <p className="font-semibold text-center">{user.name}</p>
+                  <p className="text-sm text-gray-600 text-center">{user.email}</p>
+                </div>
 
-            <nav className="p-6 space-y-4 text-sm flex-1">
-              <a href="/profil" className=" block text-gray-700">
-                Profil Saya
-              </a>
-              <a
-                href="/profil/favorit"
-                className="font-semibold block text-gray-800"
-              >
-                Barang Yang Disukai
-              </a>
-              <a
-                href="/profil/riwayat-pembelian"
-                className="block text-gray-700"
-              >
-                Riwayat Pembelian Saya
-              </a>
-              <button
-                onClick={() => {
-                  localStorage.removeItem("token");
-                  window.location.href = "/login";
-                }}
-                className="block text-red-600"
-              >
-                Keluar
-              </button>
-            </nav>
+                <nav className="p-6 space-y-4 text-sm flex-1">
+                  <a href="/profil" className=" block text-gray-700">
+                    Profil Saya
+                  </a>
+                  <a
+                    href="/profil/favorit"
+                    className="font-semibold block text-gray-800"
+                  >
+                    Barang Yang Disukai
+                  </a>
+                  <a
+                    href="/profil/riwayat-pembelian"
+                    className="block text-gray-700"
+                  >
+                    Riwayat Pembelian Saya
+                  </a>
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      window.location.href = "/login";
+                    }}
+                    className="block text-red-600"
+                  >
+                    Keluar
+                  </button>
+                </nav>
+              </>
+            )}
           </div>
 
           {/* Konten Kanan */}
-          <div className="p-10 flex flex-col w-full">
+          <div className="pt-10 flex flex-col w-full">
             {/* Header dan Search */}
             <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
               <h2 className="font-bold text-[28px] w-full md:w-auto">
@@ -144,7 +215,7 @@ const UserLikedProductsPage = () => {
             <div className="flex-grow">
               {filteredProducts.length > 0 ? (
                 <>
-                  <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-[50px] mb-5">
+                  <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-${gridCols} gap-2 mb-5`}>
                     {currentProducts.map((product) => (
                       <ProductCard
                         key={product.id}

@@ -5,6 +5,23 @@ import { Helmet } from "react-helmet";
 const UserProfilePage = () => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // Sesuaikan angka 768px sesuai breakpoint mobile Anda
+    };
+
+    // Set initial value
+    handleResize();
+
+    // Listen for window resize events
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener on unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -30,6 +47,10 @@ const UserProfilePage = () => {
     fetchProfile();
   }, []);
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   if (loading) return <div className="p-10">Loading...</div>;
   if (!user) return <div className="p-10 text-red-500">Gagal memuat data.</div>;
 
@@ -38,67 +59,107 @@ const UserProfilePage = () => {
       <Helmet>
         <title>{user.name} - Crusher Spares Indonesia</title>
       </Helmet>
-      <div className="flex justify-center p-4">
-        <div className="grid grid-cols-[250px_1fr] w-full max-w-5xl">
-          {/* Kolom Kiri: Profil atas + Menu bawah */}
-          <div className="flex flex-col border-r border-gray-300 text-left">
-            {/* Atas: Profil */}
-            <div className="p-6 border-b border-gray-300 flex flex-col items-center">
-              <img
-                src="/assets/images/photos/photo-1.png"
-                alt="User"
-                className="w-18"
-              />
-              <p className="font-semibold text-center">{user.name}</p>
-              <p className="text-sm text-gray-600 text-center">{user.email}</p>
-            </div>
+      <div className="flex justify-center p-4 text-left">
+        <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-[250px_1fr] gap-4">
+          {/* Kolom Kiri (Menu) */}
+          <div className="border border-gray-300 rounded-lg overflow-hidden md:block">
+            {isMobile ? (
+              <>
+                <div className="p-6 border-b border-gray-300 flex items-center justify-between">
+                  <div className="flex items-center">
+                    <img
+                      src="/assets/images/photos/photo-1.png"
+                      alt="User"
+                      className="w-10 h-10 rounded-full object-cover mr-2"
+                    />
+                    <p className="font-semibold">{user.name}</p>
+                  </div>
+                  <button onClick={toggleMenu} className="text-gray-600 focus:outline-none">
+                    {isMenuOpen ? (
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                    ) : (
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+                    )}
+                  </button>
+                </div>
+                {isMenuOpen && (
+                  <nav className="p-6 space-y-4 text-sm">
+                    <a href="/profil" className="font-semibold block text-gray-700">
+                      Profil Saya
+                    </a>
+                    <a href="/profil/favorit" className="block text-gray-700">
+                      Barang Yang Disukai
+                    </a>
+                    <a href="/profil/riwayat-pembelian" className="block text-gray-700">
+                      Riwayat Pembelian Saya
+                    </a>
+                    <button
+                      onClick={() => {
+                        localStorage.removeItem("token");
+                        window.location.href = "/login";
+                      }}
+                      className="block text-red-600"
+                    >
+                      Keluar
+                    </button>
+                  </nav>
+                )}
+              </>
+            ) : (
+              <>
+                {/* Atas: Profil (Desktop) */}
+                <div className="p-6 border-b border-gray-300 flex flex-col items-center text-left">
+                  <img
+                    src="/assets/images/photos/photo-1.png"
+                    alt="User"
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
+                  <p className="font-semibold mt-2">{user.name}</p>
+                  <p className="text-sm text-gray-600">{user.email}</p>
+                </div>
 
-            {/* Bawah: Menu */}
-            <nav className="p-6 space-y-4 text-sm flex-1">
-              <a href="/profil" className="font-semibold block text-gray-700">
-                Profil Saya
-              </a>
-              <a href="/profil/favorit" className="block text-gray-700">
-                Barang Yang Disukai
-              </a>
-              <a
-                href="/profil/riwayat-pembelian"
-                className="block text-gray-700"
-              >
-                Riwayat Pembelian Saya
-              </a>
-              <button
-                onClick={() => {
-                  localStorage.removeItem("token");
-                  window.location.href = "/login";
-                }}
-                className="block text-red-600"
-              >
-                Keluar
-              </button>
-            </nav>
+                {/* Bawah: Menu (Desktop) */}
+                <nav className="p-6 space-y-4 text-sm text-left">
+                  <a href="/profil" className="font-semibold block text-gray-700">
+                    Profil Saya
+                  </a>
+                  <a href="/profil/favorit" className="block text-gray-700">
+                    Barang Yang Disukai
+                  </a>
+                  <a href="/profil/riwayat-pembelian" className="block text-gray-700">
+                    Riwayat Pembelian Saya
+                  </a>
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      window.location.href = "/login";
+                    }}
+                    className="block text-red-600"
+                  >
+                    Keluar
+                  </button>
+                </nav>
+              </>
+            )}
           </div>
 
-          {/* Kolom Kanan: Konten Profil */}
-          <div className="p-10">
-            <h2 className="text-2xl font-bold mb-8 text-[#1E2749]">
-              Profil Saya
-            </h2>
-
-            <div className="space-y-6 text-sm text-left">
-              <div className="flex items-center">
-                <span className="w-40 text-gray-400">Username</span>
+          {/* Kolom Kanan (Detail Profil) */}
+          <div className="p-6 borde rounded-lg text-left">
+            <h2 className="text-2xl font-bold mb-6 text-[#1E2749]">Profil Saya</h2>
+            <div className="space-y-5 text-sm text-left">
+              <div className="flex flex-col sm:flex-row sm:items-center text-left">
+                <span className="w-40 text-gray-400 ">Username</span>
                 <span className="text-black font-medium">{user.name}</span>
               </div>
-              <div className="flex items-center">
+              <div className="flex flex-col sm:flex-row sm:items-center">
                 <span className="w-40 text-gray-400">Email</span>
                 <span>{user.email}</span>
               </div>
-              <div className="flex items-center">
+              <div className="flex flex-col sm:flex-row sm:items-center">
                 <span className="w-40 text-gray-400">Nomor Telepon</span>
                 <span>{user.phone || "-"}</span>
               </div>
-              <div className="flex items-start">
+              <div className="flex flex-col sm:flex-row sm:items-start">
                 <span className="w-40 text-gray-400">Alamat</span>
                 <span>{user.address || "-"}</span>
               </div>

@@ -81,11 +81,11 @@ export default function PaymentConfirmationPage() {
           alert("Terjadi kesalahan saat mengambil data.");
         }
 
-        navigate("/"); // redirect ke beranda
+        navigate("/");
       });
   }, [token, navigate, authToken, apiKey]);
 
-  if (!order) return <div>Loading...</div>;
+  if (!order) return <div className="text-center py-20">Loading...</div>;
 
   const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
   if (submitted) {
@@ -95,7 +95,6 @@ export default function PaymentConfirmationPage() {
           Mohon Tunggu, Kami Sedang Mengecek Pembayaran Anda
         </h2>
         <div className="text-6xl mb-6">🧾</div>
-
         <p className="mb-2">
           Silakan menunggu maksimal 1x24 jam untuk proses verifikasi pembayaran
           di hari kerja (Senin–Jumat, pukul 08.00–17.00 WIB).
@@ -108,7 +107,6 @@ export default function PaymentConfirmationPage() {
           Anda akan menerima notifikasi via email atau WhatsApp setelah
           pembayaran diverifikasi oleh tim admin.
         </p>
-
         <a
           href="/profil/riwayat-pembelian"
           className="inline-block bg-white text-black px-6 py-2 rounded shadow hover:bg-gray-100 transition"
@@ -124,136 +122,126 @@ export default function PaymentConfirmationPage() {
       <Helmet>
         <title>Konfirmasi Pembayaran - Crusher Spares Indonesia</title>
       </Helmet>
-      <div className="text-left w-full max-w-[1130px] mx-auto py-10 mb-5 min-h-[600px] flex flex-row justify-between">
-        <div className="payment-items pr-5">
-          <h3 className="font-bold text-[32px] w-full md:w-auto text-left">
-            Barang
-          </h3>
-          {items.map((item, idx) => (
-            <div key={idx} className="payment-item-card bg-white">
-              <div className="payment-item-info">
-                <img
-                  src={
-                    item.product?.thumbnail
-                      ? `${import.meta.env.VITE_API_URL}/storage/${item.product.thumbnail}`
-                      : "/placeholder.png"
-                  }
-                  className="w-24 h-24 object-cover rounded"
-                  alt={item.product.name}
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "/placeholder.png";
-                  }}
-                />
+      <div className="w-full max-w-[1130px] mx-auto py-10 mb-5 px-4 lg:px-0 min-h-[600px]">
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="lg:w-2/3">
+            <h3 className="font-bold text-2xl mb-4">Barang</h3>
+            {items.map((item, idx) => (
+              <div key={idx} className="text-left flex items-center justify-between bg-white p-4 rounded shadow mb-3">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={
+                      item.product?.thumbnail
+                        ? `${import.meta.env.VITE_API_URL}/storage/${item.product.thumbnail}`
+                        : "/placeholder.png"
+                    }
+                    className="w-20 h-20 object-cover rounded"
+                    alt={item.product.name}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "/placeholder.png";
+                    }}
+                  />
+                  <div>
+                    <div className="font-bold text-base">{item.product.name}</div>
+                    <div className="text-sm text-gray-600">Harga: {formatRupiah(item.unit_price)}</div>
+                  </div>
+                </div>
+                <div className="text-sm">Qty: {item.quantity}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="lg:w-1/3 bg-white p-5 rounded shadow text-left">
+            <h2 className="text-lg font-semibold text-center mb-4">Ringkasan Belanja</h2>
+            <div className="mb-1">Total Barang: {totalItems}</div>
+            <div className="mb-1">
+              Harga Barang: {formatRupiah(order.total_price - (order.shipping_cost || 0))}
+            </div>
+            <div className="mb-1">Harga Ongkir: {formatRupiah(order.shipping_cost || 0)}</div>
+            <div className="font-semibold mb-1">
+              Total: {formatRupiah(order.total_price)}
+            </div>
+            <div className="text-green-600 font-bold mb-4">
+              Dibayar: {formatRupiah(order.initial_payment || order.total_price)}
+            </div>
+
+            <div className="mb-3">
+              <div className="mb-1 font-semibold">Transfer ke:</div>
+              <div className="flex items-center gap-3">
+                <img src="/assets/images/logos/bca.svg" alt="BCA" className="w-12 h-6" />
                 <div>
-                  <div className="font-bold text-lg">{item.product.name}</div>
-                  <div>Harga: {formatRupiah(item.unit_price)}</div>
+                  <div className="font-semibold">PT Crusher Spares Indonesia</div>
+                  <div className="text-sm">1234567890123</div>
                 </div>
               </div>
-              <div className="self-center">Quantity: {item.quantity}</div>
-            </div>
-          ))}
-        </div>
-
-        <div className="payment-summary">
-          <h2 className="text-center mb-4">Ringkasan Belanja</h2>
-          <div>Total Barang: {totalItems}</div>
-          <div>
-            Harga Barang:{" "}
-            {formatRupiah(order.total_price - (order.shipping_cost || 0))}
-          </div>
-          <div>Harga Ongkir: {formatRupiah(order.shipping_cost || 0)}</div>
-          <div className="font-semibold">
-            Total: {formatRupiah(order.total_price)}
-          </div>
-          <div className="highlight">
-            Total yang Dibayar:{" "}
-            {formatRupiah(order.initial_payment || order.total_price)}
-          </div>
-
-          <div className="payment-transfer-info mb-5">
-            <div className="mb-1">Transfer ke:</div>
-            <div className="bank-info">
-              <img src="/assets/images/logos/bca.svg" alt="BCA" />
-              <div>
-                <div className="font-semibold">PT Crusher Spares Indonesia</div>
-                <div>1234567890123</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="payment-proof">
-            <label className="font-semibold text-sm mb-1 block">
-              Bukti Transfer *
-            </label>
-
-            <div className="flex items-center gap-4">
-              <label
-                htmlFor="file-upload"
-                className="cursor-pointer bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded text-sm"
-              >
-                Pilih File
-              </label>
-              <span className="text-sm text-gray-600">
-                {proof ? proof.name : "Belum ada file dipilih"}
-              </span>
             </div>
 
-            <input
-              id="file-upload"
-              type="file"
-              className="hidden"
-              accept="image/jpeg,image/png,image/jpg"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (!file) return;
-
-                if (
-                  !["image/jpeg", "image/png", "image/jpg"].includes(file.type)
-                ) {
-                  alert("Hanya gambar JPG atau PNG yang diperbolehkan.");
-                  return;
-                }
-
-                if (file.size > 5 * 1024 * 1024) {
-                  alert("Ukuran file maksimal 5MB.");
-                  return;
-                }
-
-                setProof(file);
-              }}
-            />
-
-            {proof && (
-              <div className="mt-3 relative inline-block">
-                <img
-                  src={URL.createObjectURL(proof)}
-                  alt="Preview Bukti Transfer"
-                  className="max-w-full max-h-60 rounded border"
-                />
-                <button
-                  onClick={() => setProof(null)}
-                  className="absolute top-1 right-1 bg-red-600 text-white text-xs px-2 py-1 rounded-full hover:bg-red-700"
+            <div className="mb-3">
+              <label className="block font-semibold text-sm mb-1">Bukti Transfer *</label>
+              <div className="flex items-center gap-3">
+                <label
+                  htmlFor="file-upload"
+                  className="cursor-pointer bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded text-sm"
                 >
-                  ✕
-                </button>
+                  Pilih File
+                </label>
+                <span className="text-sm text-gray-600">
+                  {proof ? proof.name : "Belum ada file dipilih"}
+                </span>
               </div>
-            )}
-          </div>
+              <input
+                id="file-upload"
+                type="file"
+                className="hidden"
+                accept="image/jpeg,image/png,image/jpg"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
 
-          <button className="payment-button" onClick={handleSubmit}>
-            Konfirmasi Pembayaran
-          </button>
+                  if (!["image/jpeg", "image/png", "image/jpg"].includes(file.type)) {
+                    alert("Hanya gambar JPG atau PNG yang diperbolehkan.");
+                    return;
+                  }
+                  if (file.size > 5 * 1024 * 1024) {
+                    alert("Ukuran file maksimal 5MB.");
+                    return;
+                  }
 
-          <div className="payment-wa-link text-right">
-            Ada kesalahan dalam pesanan?
-            <a
-              href="https://wa.me/6281947139720"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="payment-wa-button"
-            >
-              Hubungi CS via WhatsApp
-            </a>
+                  setProof(file);
+                }}
+              />
+              {proof && (
+                <div className="mt-3 relative">
+                  <img
+                    src={URL.createObjectURL(proof)}
+                    alt="Preview Bukti Transfer"
+                    className="max-h-60 w-full object-contain rounded border"
+                  />
+                  <button
+                    onClick={() => setProof(null)}
+                    className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-full hover:bg-red-700"
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <button className="w-full mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition" onClick={handleSubmit}>
+              Konfirmasi Pembayaran
+            </button>
+
+            <div className="mt-4 text-sm text-right">
+              Ada kesalahan dalam pesanan?<br/>
+              <a
+                href="https://wa.me/6281947139720"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-2 bg-green-600 text-white px-4 py-1 rounded-md shadow hover:bg-green-700 transition"
+              >
+                Hubungi CS via WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </div>

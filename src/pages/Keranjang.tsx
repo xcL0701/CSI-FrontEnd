@@ -127,7 +127,7 @@ export default function Keranjang() {
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-1 md:gap-3">
                     <button
                       className="p-1 bg-gray-100 rounded"
                       onClick={() =>
