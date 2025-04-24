@@ -22,7 +22,7 @@ export default function CatalogCategory() {
   return (
     <section
       id="CatalogCategory"
-      className="flex flex-col gap-[30px] mt-[100px]"
+      className="flex flex-col gap-[30px] mt-[100px] container overflow-x-hidden"
     >
       <div className="w-full max-w-[1130px] mx-auto flex items-center justify-between">
         <h2 className="font-bold text-[32px] leading-[48px] text-nowrap">
