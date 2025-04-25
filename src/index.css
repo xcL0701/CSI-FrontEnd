@@ -3222,3 +3222,8 @@ body {
 .py-6 {
   padding-block: calc(var(--spacing) * 6) /* 1.5rem = 24px */;
 }
+.md\:w-\[300px\] {
+  @media (width >= 48rem /* 768px */) {
+      width: 300px;
+  }
+}

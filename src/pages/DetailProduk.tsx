@@ -188,8 +188,9 @@ export default function ProductDetail() {
               {product.product_photos.length > 0 && (
                 <div className="w-full h-[320px] rounded-xl border overflow-hidden mb-4">
                   <img
-                    src={`${import.meta.env.VITE_API_URL}/storage/${product.product_photos[selectedImageIndex].photo
-                      }`}
+                    src={`${import.meta.env.VITE_API_URL}/storage/${
+                      product.product_photos[selectedImageIndex].photo
+                    }`}
                     alt={`Foto ${selectedImageIndex + 1}`}
                     className="object-contain w-full h-full transition-opacity duration-300"
                   />
@@ -218,13 +219,16 @@ export default function ProductDetail() {
                     <button
                       key={i}
                       onClick={() => setSelectedImageIndex(i)}
-                      className={`w-[60px] h-[60px] flex-shrink-0 rounded border-2 ${i === selectedImageIndex
-                        ? "border-green-500"
-                        : "border-gray-300"
-                        }`}
+                      className={`w-[60px] h-[60px] flex-shrink-0 rounded border-2 ${
+                        i === selectedImageIndex
+                          ? "border-green-500"
+                          : "border-gray-300"
+                      }`}
                     >
                       <img
-                        src={`${import.meta.env.VITE_API_URL}/storage/${photo.photo}`}
+                        src={`${import.meta.env.VITE_API_URL}/storage/${
+                          photo.photo
+                        }`}
                         alt={`Thumb ${i + 1}`}
                         className="w-full h-full object-cover rounded"
                       />
@@ -272,10 +276,11 @@ export default function ProductDetail() {
                 {/* Like Button */}
                 <button
                   onClick={handleLike}
-                  className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full text-white font-medium flex-1 ${liked
-                    ? "bg-pink-400 hover:bg-pink-500"
-                    : "bg-pink-300 hover:bg-pink-400"
-                    }`}
+                  className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full text-white font-medium flex-1 ${
+                    liked
+                      ? "bg-pink-400 hover:bg-pink-500"
+                      : "bg-pink-300 hover:bg-pink-400"
+                  }`}
                 >
                   <span>{liked ? "❤️" : "🤍"}</span> {likesCount} Suka
                 </button>
