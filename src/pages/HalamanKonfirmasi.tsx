@@ -109,7 +109,7 @@ export default function PaymentConfirmationPage() {
         </p>
         <a
           href="/profil/riwayat-pembelian"
-          className="inline-block bg-white text-black px-6 py-2 rounded shadow hover:bg-gray-100 transition"
+          className="inline-block bg-white font-bold text-black px-6 py-2 rounded shadow hover:bg-gray-100 transition"
         >
           Cek Riwayat Pembelian
         </a>

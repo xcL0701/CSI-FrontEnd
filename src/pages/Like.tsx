@@ -212,7 +212,7 @@ const UserLikedProductsPage = () => {
             </div>
 
             {/* Grid Produk */}
-            <div className="flex-grow">
+            <div className="flex-grow self-center">
               {filteredProducts.length > 0 ? (
                 <>
                   <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-${gridCols} gap-2 mb-5`}>

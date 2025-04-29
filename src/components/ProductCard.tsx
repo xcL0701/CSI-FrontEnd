@@ -145,7 +145,7 @@ export default function ProductCard({
         <img
           src={`${import.meta.env.VITE_API_URL}/storage/${thumbnail}`}
           alt={product.name}
-          className="w-full h-full object-contain"
+          className="w-full h-full object-cover"
         />
       </div>
 
