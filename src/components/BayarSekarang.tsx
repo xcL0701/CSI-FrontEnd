@@ -53,7 +53,7 @@ const ModalBayarSekarang: React.FC<Props> = ({
       });
 
       if (!res.ok) throw new Error("Gagal mengirim pembayaran");
-
+      audio.volume = 0.3;
       audio.play();
       alert("Pembayaran berhasil dikirim!");
       onClose();

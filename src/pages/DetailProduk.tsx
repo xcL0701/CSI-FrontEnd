@@ -171,7 +171,8 @@ export default function ProductDetail() {
     }
 
     try {
-      audio.play(); // Putar suara sebelum fetch
+      audio.volume = 0.3;
+      audio.play();
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/cart/add`,
         {

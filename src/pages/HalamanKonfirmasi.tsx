@@ -50,7 +50,7 @@ export default function PaymentConfirmationPage() {
           },
         }
       );
-
+      audio.volume = 0.3;
       audio.play();
       setSubmitted(true);
     } catch (err) {
