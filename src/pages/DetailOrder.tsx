@@ -98,7 +98,7 @@ const OrderDetailPage = () => {
   return (
     <>
       <Helmet>
-        <title>Pesanan {order.id} - Crusher Spares Indonesia</title>
+        <title>Pesanan {order.id} - CSI Online</title>
       </Helmet>
       <div className="flex justify-center p-4">
         <div className="grid grid-cols-1 md:grid-cols-[250px_1fr] w-full max-w-[1130px]">

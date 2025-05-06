@@ -6,7 +6,7 @@ export default function Tentang() {
   return (
     <>
       <Helmet>
-        <title>Tentang - Crusher Spares Indonesia</title>
+        <title>Tentang - CSI Online</title>
       </Helmet>
       <div className="w-full min-h-screen py-12 px-4">
         <div className="max-w-[1130px] mx-auto flex flex-col gap-10">
@@ -17,16 +17,16 @@ export default function Tentang() {
 
           {/* Video */}
           <div className="w-full aspect-video rounded-xl overflow-hidden shadow-lg">
-              <video
-                className="w-full h-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-              >
-                <source src="/assets/video/Preview.mp4" type="video/mp4" />
-                Browser Anda tidak mendukung video HTML5.
-              </video>
+            <video
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src="/assets/video/Preview.mp4" type="video/mp4" />
+              Browser Anda tidak mendukung video HTML5.
+            </video>
           </div>
 
           {/* Tentang Perusahaan */}

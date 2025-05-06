@@ -57,7 +57,7 @@ const UserProfilePage = () => {
   return (
     <>
       <Helmet>
-        <title>{user.name} - Crusher Spares Indonesia</title>
+        <title>{user.name} - CSI Online</title>
       </Helmet>
       <div className="flex justify-center p-4 text-left">
         <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-[250px_1fr] gap-4">

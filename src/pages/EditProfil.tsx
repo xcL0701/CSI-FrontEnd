@@ -84,7 +84,7 @@ const EditProfilePage = () => {
   return (
     <>
       <Helmet>
-        <title>Edit Profil - Crusher Spares Indonesia</title>
+        <title>Edit Profil - CSI Online</title>
       </Helmet>
       <div className="flex justify-center p-4 w-full">
         <div className="grid grid-cols-[250px_1fr] w-full max-w-5xl">

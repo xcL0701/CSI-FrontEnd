@@ -50,7 +50,7 @@ export default function Login() {
   return (
     <>
       <Helmet>
-        <title>Login - Crusher Spares Indonesia</title>
+        <title>Login - CSI Online</title>
       </Helmet>
       <div className="login-container">
         <form onSubmit={handleSubmit} className="login-form">

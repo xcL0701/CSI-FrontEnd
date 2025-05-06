@@ -119,7 +119,7 @@ export default function KatalogProduk() {
   return (
     <>
       <Helmet>
-        <title>Katalog - Crusher Spares Indonesia</title>
+        <title>Katalog - CSI Online</title>
       </Helmet>
       <section className="w-full max-w-[1200px] mx-auto px-4 py-6">
         {/* Header + Filter/Search */}

@@ -96,7 +96,7 @@ const UserLikedProductsPage = () => {
   return (
     <>
       <Helmet>
-        <title>Barang Yang Disukai - Crusher Spares Indonesia</title>
+        <title>Barang Yang Disukai - CSI Online</title>
       </Helmet>
       <div className="flex justify-center p-4">
         <div className="grid grid-cols-1 md:grid-cols-[250px_1fr] w-full max-w-[1130px]">

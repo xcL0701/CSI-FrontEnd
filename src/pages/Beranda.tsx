@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>Beranda - Crusher Spares Indonesia</title>
+        <title>Beranda - CSI Online</title>
       </Helmet>
       <header className="flex flex-col w-full">
         <section

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 type ProductCardProps = {
   product: Product;
   onAddToCartSuccess?: () => Promise<void>;
-  size?: "sm" | "md"; // ✅ Tambahkan opsi ukuran
+  size?: "sm" | "md";
 };
 
 export default function ProductCard({
@@ -18,6 +18,7 @@ export default function ProductCard({
   const { fetchCartItems } = useCart();
   const [likesCount, setLikesCount] = useState(0);
   const [liked, setLiked] = useState(false);
+  const [audio] = useState(new Audio("/assets/sound/coin-3-42413.mp3"));
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -103,6 +104,7 @@ export default function ProductCard({
     }
 
     try {
+      audio.play(); // Putar suara sebelum fetch
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/cart/add`,
         {

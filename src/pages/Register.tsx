@@ -46,7 +46,7 @@ export default function Register() {
   return (
     <>
       <Helmet>
-        <title>Daftar - Crusher Spares Indonesia</title>
+        <title>Daftar - CSI Online</title>
       </Helmet>
       <div className="login-container">
         <form onSubmit={handleSubmit} className="login-form">

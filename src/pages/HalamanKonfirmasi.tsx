@@ -12,7 +12,9 @@ export default function PaymentConfirmationPage() {
   const [order, setOrder] = useState<Order | null>(null);
   const [items, setItems] = useState<OrderItem[]>([]);
   const [proof, setProof] = useState<File | null>(null);
-
+  const [audio] = useState(
+    new Audio("/assets/sound/cash-register-purchase-87313.mp3")
+  );
   const authToken = localStorage.getItem("token");
   const apiKey = import.meta.env.VITE_API_KEY;
   const [submitted, setSubmitted] = useState(false);
@@ -37,14 +39,19 @@ export default function PaymentConfirmationPage() {
     formData.append("proof", proof);
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/payments`, formData, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          "X-API-KEY": apiKey,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/payments`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "X-API-KEY": apiKey,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
+      audio.play();
       setSubmitted(true);
     } catch (err) {
       console.error(err);
@@ -60,12 +67,15 @@ export default function PaymentConfirmationPage() {
     }
 
     axios
-      .get(`${import.meta.env.VITE_API_URL}/api/payment/confirmation/${token}`, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          "X-API-KEY": apiKey,
-        },
-      })
+      .get(
+        `${import.meta.env.VITE_API_URL}/api/payment/confirmation/${token}`,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "X-API-KEY": apiKey,
+          },
+        }
+      )
       .then((res) => {
         setOrder(res.data.order);
         setItems(res.data.items);
@@ -120,19 +130,24 @@ export default function PaymentConfirmationPage() {
   return (
     <>
       <Helmet>
-        <title>Konfirmasi Pembayaran - Crusher Spares Indonesia</title>
+        <title>Konfirmasi Pembayaran - CSI Online</title>
       </Helmet>
       <div className="w-full max-w-[1130px] mx-auto py-10 mb-5 px-4 lg:px-0 min-h-[600px]">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="lg:w-2/3">
             <h3 className="font-bold text-2xl mb-4">Barang</h3>
             {items.map((item, idx) => (
-              <div key={idx} className="text-left flex items-center justify-between bg-white p-4 rounded shadow mb-3">
+              <div
+                key={idx}
+                className="text-left flex items-center justify-between bg-white p-4 rounded shadow mb-3"
+              >
                 <div className="flex items-center gap-4">
                   <img
                     src={
                       item.product?.thumbnail
-                        ? `${import.meta.env.VITE_API_URL}/storage/${item.product.thumbnail}`
+                        ? `${import.meta.env.VITE_API_URL}/storage/${
+                            item.product.thumbnail
+                          }`
                         : "/placeholder.png"
                     }
                     className="w-20 h-20 object-cover rounded"
@@ -142,8 +157,12 @@ export default function PaymentConfirmationPage() {
                     }}
                   />
                   <div>
-                    <div className="font-bold text-base">{item.product.name}</div>
-                    <div className="text-sm text-gray-600">Harga: {formatRupiah(item.unit_price)}</div>
+                    <div className="font-bold text-base">
+                      {item.product.name}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      Harga: {formatRupiah(item.unit_price)}
+                    </div>
                   </div>
                 </div>
                 <div className="text-sm">Qty: {item.quantity}</div>
@@ -152,32 +171,46 @@ export default function PaymentConfirmationPage() {
           </div>
 
           <div className="lg:w-1/3 bg-white p-5 rounded shadow text-left">
-            <h2 className="text-lg font-semibold text-center mb-4">Ringkasan Belanja</h2>
+            <h2 className="text-lg font-semibold text-center mb-4">
+              Ringkasan Belanja
+            </h2>
             <div className="mb-1">Total Barang: {totalItems}</div>
             <div className="mb-1">
-              Harga Barang: {formatRupiah(order.total_price - (order.shipping_cost || 0))}
+              Harga Barang:{" "}
+              {formatRupiah(order.total_price - (order.shipping_cost || 0))}
             </div>
-            <div className="mb-1">Harga Ongkir: {formatRupiah(order.shipping_cost || 0)}</div>
+            <div className="mb-1">
+              Harga Ongkir: {formatRupiah(order.shipping_cost || 0)}
+            </div>
             <div className="font-semibold mb-1">
               Total: {formatRupiah(order.total_price)}
             </div>
             <div className="text-green-600 font-bold mb-4">
-              Dibayar: {formatRupiah(order.initial_payment || order.total_price)}
+              Dibayar:{" "}
+              {formatRupiah(order.initial_payment || order.total_price)}
             </div>
 
             <div className="mb-3">
               <div className="mb-1 font-semibold">Transfer ke:</div>
               <div className="flex items-center gap-3">
-                <img src="/assets/images/logos/bca.svg" alt="BCA" className="w-12 h-6" />
+                <img
+                  src="/assets/images/logos/bca.svg"
+                  alt="BCA"
+                  className="w-12 h-6"
+                />
                 <div>
-                  <div className="font-semibold">PT Crusher Spares Indonesia</div>
+                  <div className="font-semibold">
+                    PT Crusher Spares Indonesia
+                  </div>
                   <div className="text-sm">1234567890123</div>
                 </div>
               </div>
             </div>
 
             <div className="mb-3">
-              <label className="block font-semibold text-sm mb-1">Bukti Transfer *</label>
+              <label className="block font-semibold text-sm mb-1">
+                Bukti Transfer *
+              </label>
               <div className="flex items-center gap-3">
                 <label
                   htmlFor="file-upload"
@@ -198,7 +231,11 @@ export default function PaymentConfirmationPage() {
                   const file = e.target.files?.[0];
                   if (!file) return;
 
-                  if (!["image/jpeg", "image/png", "image/jpg"].includes(file.type)) {
+                  if (
+                    !["image/jpeg", "image/png", "image/jpg"].includes(
+                      file.type
+                    )
+                  ) {
                     alert("Hanya gambar JPG atau PNG yang diperbolehkan.");
                     return;
                   }
@@ -227,12 +264,15 @@ export default function PaymentConfirmationPage() {
               )}
             </div>
 
-            <button className="w-full mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition" onClick={handleSubmit}>
+            <button
+              className="w-full mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+              onClick={handleSubmit}
+            >
               Konfirmasi Pembayaran
             </button>
 
             <div className="mt-4 text-sm text-right">
-              Ada kesalahan dalam pesanan?<br/>
+              Ada kesalahan dalam pesanan?
               <a
                 href="https://wa.me/6281947139720"
                 target="_blank"

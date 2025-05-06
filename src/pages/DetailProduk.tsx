@@ -5,6 +5,7 @@ import axios from "axios";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { FiPlus, FiShare2 } from "react-icons/fi";
 import { Helmet } from "react-helmet";
+import { useCart } from "../contexts/CartContext";
 
 export default function ProductDetail() {
   const { slug } = useParams();
@@ -13,9 +14,11 @@ export default function ProductDetail() {
   const [isDarkBg, setIsDarkBg] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const thumbnailRef = useRef<HTMLDivElement>(null);
+  const { fetchCartItems } = useCart();
   const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [audio] = useState(new Audio("/assets/sound/coin-3-42413.mp3"));
 
   useEffect(() => {
     const handleResize = () => {
@@ -160,10 +163,47 @@ export default function ProductDetail() {
     }
   };
 
+  const handleAddToCart = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Silakan login terlebih dahulu!");
+      return;
+    }
+
+    try {
+      audio.play(); // Putar suara sebelum fetch
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/cart/add`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Api-Key": import.meta.env.VITE_API_KEY,
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            product_id: product.id,
+            quantity: 1,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Gagal menambahkan ke keranjang");
+      }
+
+      alert("Produk berhasil ditambahkan ke keranjang!");
+      fetchCartItems();
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Terjadi kesalahan saat menambahkan ke keranjang");
+    }
+  };
+
   return (
     <>
       <Helmet>
-        <title>{product.name} - Crusher Spares Indonesia</title>
+        <title>{product.name} - CSI Online</title>
       </Helmet>
       <div className="w-full pb-5">
         {/* SECTION 3D */}
@@ -265,7 +305,10 @@ export default function ProductDetail() {
 
             {/* Tombol Aksi */}
             <div className="w-full md:w-[300px] bg-white p-4 rounded-xl shadow-md space-y-4">
-              <button className="mb-5 bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-4 rounded-full w-full flex items-center justify-center gap-2 text-base">
+              <button
+                onClick={handleAddToCart}
+                className="mb-5 bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-4 rounded-full w-full flex items-center justify-center gap-2 text-base"
+              >
                 <span className="text-xl">
                   <FiPlus />
                 </span>{" "}

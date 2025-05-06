@@ -90,7 +90,7 @@ export default function Keranjang() {
   return (
     <>
       <Helmet>
-        <title>Keranjang Saya - Crusher Spares Indonesia</title>
+        <title>Keranjang Saya - CSI Online</title>
       </Helmet>
       <div className="max-w-6xl mx-auto p-6">
         <h2 className="text-2xl font-bold mb-6">Keranjang Saya</h2>

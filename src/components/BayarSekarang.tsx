@@ -22,9 +22,12 @@ const ModalBayarSekarang: React.FC<Props> = ({
   if (!open) return null;
 
   const [amount, setAmount] = React.useState("");
-  const [rawAmount, setRawAmount] = React.useState(""); // Untuk data asli tanpa "Rp."
+  const [rawAmount, setRawAmount] = React.useState("");
   const [proof, setProof] = React.useState<File | null>(null);
   const [loading, setLoading] = React.useState(false);
+  const [audio] = React.useState(
+    new Audio("/assets/sound/cash-register-purchase-87313.mp3")
+  );
 
   const handleSubmit = async () => {
     if (!rawAmount || !proof) {
@@ -51,8 +54,9 @@ const ModalBayarSekarang: React.FC<Props> = ({
 
       if (!res.ok) throw new Error("Gagal mengirim pembayaran");
 
+      audio.play();
       alert("Pembayaran berhasil dikirim!");
-      onClose(); // tutup modal
+      onClose();
     } catch (error) {
       alert("Terjadi kesalahan saat mengirim data.");
       console.error(error);
@@ -122,7 +126,7 @@ const ModalBayarSekarang: React.FC<Props> = ({
               placeholder="Rp. 0"
               value={amount}
               onChange={(e) => {
-                const value = e.target.value.replace(/\D/g, ""); // Hanya angka
+                const value = e.target.value.replace(/\D/g, "");
                 setRawAmount(value);
                 setAmount(formatRupiah(value));
               }}
