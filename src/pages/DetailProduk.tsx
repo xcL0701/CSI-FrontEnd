@@ -87,7 +87,7 @@ export default function ProductDetail() {
       const viewer = document.createElement("model-viewer");
       viewer.setAttribute(
         "src",
-        `${import.meta.env.VITE_API_URL}/models/${product.model_3d}`
+        `${import.meta.env.VITE_API_URL}/${product.model_3d}`
       );
 
       viewer.setAttribute("alt", product.name);
